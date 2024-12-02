@@ -117,9 +117,6 @@ async function handleMessage(message: MessageEvent) {
         bufferData.subarray(2, contentIndex),
       );
       const requestId = parseRequestId(headers);
-      console.debug(
-        `Received binary/audio (${requestId})：length: ${bufferData.byteLength}`,
-      );
 
       return { requestId, data: bufferData.subarray(contentIndex) };
     }
