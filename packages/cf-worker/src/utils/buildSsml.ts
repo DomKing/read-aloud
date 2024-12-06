@@ -13,6 +13,7 @@ export default function buildSsml(
 ) {
   const { voiceName, pitch, rate, volume } = options;
   function wrapProsody(text: string) {
+    text = escapeSsml(text);
     if (!pitch && !rate && !volume) {
       return text;
     }
@@ -20,6 +21,12 @@ export default function buildSsml(
   }
   function wrapVoice(child: Element | string) {
     return x("voice", { name: voiceName }, child);
+  }
+  function escapeSsml(input) {
+    return input
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
   }
 
   return toXml(
